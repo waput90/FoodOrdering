@@ -1,15 +1,13 @@
 using System;
-using System.ComponentModel.DataAnnotations;
-using FoodOrdering.Data.Access.Common;
 
-namespace FoodOrdering.Data.Models
+namespace FoodOrdering.Commons.ViewModel
 {
-    public class Menu: IEntity
+    public class GetProductResponseModel
     {
-        [Key]
         public string Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public decimal Price { get; set; }
         public DateTime DateCreated { get; set; }
     }
 }

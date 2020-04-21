@@ -13,3 +13,5 @@ FoodOrdering/.vs/FoodOrdering/v16/Server/sqlite3/storage.ide
 FoodOrdering/.vs/FoodOrdering/v16/Server/sqlite3/storage.ide-shm
 FoodOrdering/.vs/FoodOrdering/v16/Server/sqlite3/storage.ide-wal
 FoodOrdering/FoodOrdering.Data/global.json
+FoodOrdering/.vscode/launch.json
+FoodOrdering/.vscode/tasks.json

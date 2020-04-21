@@ -8,4 +8,9 @@
       <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.2.0" />
       <PackageReference Include="MailKit" Version="2.4.1" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FoodOrdering.Commons\FoodOrdering.Commons.csproj" />
+    <ProjectReference Include="..\FoodOrdering.Data\FoodOrdering.Data.csproj" />
+  </ItemGroup>
 </Project>

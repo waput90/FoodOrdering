@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FoodOrdering.Services.Abstract;
+using FoodOrdering.Services.Concrete;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace FoodOrdering.Services
 {
@@ -6,7 +9,8 @@ namespace FoodOrdering.Services
     {
         public static IServiceCollection RegisterService(this IServiceCollection service)
         {
-
+            service.TryAddTransient<IProductService, ProductService>();
+            service.TryAddTransient<IMenuService, MenuService>();
             return service;
         }
     }

@@ -2,7 +2,111 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="row mt-2 justify-content-center">
+    <div class="col-md-6">
+        <div class="card card-default">
+            <div class="card-header">
+                <h5>
+                     <!-- ko if: vars.isMenuSelected() != null -->
+                        <a href="javascript:void();" data-bind="click: event.clearMenu" class="badge badge-secondary">
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                    <!-- /ko -->
+                    Simple Online Ordering App
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <!-- ko if: vars.isMenuSelected() == null -->
+                        <!-- ko foreach: vars.menuList -->
+                        <div class="col-md-6 mt-2" data-bind="click: $root.event.selectMenu">
+                            <div class="card card-default card-pointer">
+                                <div class="card-header">
+                                    <img data-bind="attr: { src: $root.event.menuHelper(name)}" class="img-fluid rounded" alt="">
+                                    <hr>
+                                    <h6 class="text-center" data-bind="text: name"></h6>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                    <!-- /ko -->
+                    <!-- ko if: vars.isMenuSelected() != null -->
+                        <!-- ko foreach: vars.productList -->
+                        <div class="col-md-6 mt-2" data-bind="click: $root.event.selectSubMenu">
+                            <div class="card card-default card-pointer">
+                                <div class="card-header">
+                                    <img data-bind="attr: { src: $root.event.subMenuHelper(name)}" class="img-fluid rounded" alt="">
+                                    <hr>
+                                    <h6 class="text-center" data-bind="text: name"></h6>
+                                    <h6 class="text-center" data-bind="text: accounting.formatMoney(price,'₱ ')"></h6>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                    <!-- /ko -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card card-default">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-default">
+                            <div class="card-header">
+                                <label>
+                                    Current order:
+                                </label>
+                                <hr>
+                                <table class="table table-borderless">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Qty</th>
+                                        <th>Price</th>
+                                        <th><br></th>
+                                    </tr>
+                                    <tr>
+                                        <td>Cheese burger</td>
+                                        <td>2</td>
+                                        <td>24.00</td>
+                                        <td>
+                                            <button class="btn btn-success btn-sm">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                            <button class="btn btn-danger btn-sm">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group mt-2">
+                            <div class="input-group">
+                                <input type="text" placeholder="Place coupon codes" class="form-control" name="" id="">
+                                <div class="input-group-append">
+                                    <button class="btn btn-success">
+                                        <i class="fas fa-plus" ></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-success btn-block btn-lg">
+                            <i class="fas fa-cart-plus"></i> PLACE ORDER
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+@section Scripts
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/accounting.js/0.4.1/accounting.min.js"></script>
+    <script src="~/js/index.js" type="module"></script>
+}

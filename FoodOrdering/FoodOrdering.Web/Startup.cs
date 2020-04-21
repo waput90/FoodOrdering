@@ -26,14 +26,14 @@ namespace FoodOrdering.Web
         {
             // services.AddDbContext<FoodOrderingDbContext>(options =>
             //     options.(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDbContext<FoodOrderingDbContext>(opt =>
+            services.AddDbContext<FoodOrderingApplicationDbContext>(opt =>
                 opt.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDbContextPool<FoodOrderingDbContext>(options =>
                 options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<SystemUser, IdentityRole>()
-                .AddEntityFrameworkStores<FoodOrderingDbContext>()
+                .AddEntityFrameworkStores<FoodOrderingApplicationDbContext>()
                 .AddDefaultTokenProviders();
                 
             services.RegisterDataAccess<FoodOrderingDbContext>();
@@ -83,7 +83,7 @@ namespace FoodOrdering.Web
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Redir}/{action=Index}/{id?}");
             });
         }
     }

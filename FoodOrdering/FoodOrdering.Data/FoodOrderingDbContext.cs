@@ -21,7 +21,7 @@ namespace FoodOrdering.Data
             base.OnModelCreating(modelBuilder);
             
             modelBuilder.Entity<Menu>(entity => entity.Property(m => m.Id).HasMaxLength(80));
-            modelBuilder.Entity<Menu>(entity => entity.Property(m => m.ProductId).HasMaxLength(80));
+            modelBuilder.Entity<Product>(entity => entity.Property(m => m.MenuId).HasMaxLength(80));
             modelBuilder.Entity<Product>(entity => entity.Property(m => m.Id).HasMaxLength(80));
             modelBuilder.Entity<Coupon>(entity => entity.Property(m => m.Id).HasMaxLength(80));
         }

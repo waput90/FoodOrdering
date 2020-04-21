@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodOrdering.Data.Migrations.FoodOrderingDb
 {
     [DbContext(typeof(FoodOrderingDbContext))]
-    [Migration("20200421111544_initialTable")]
-    partial class initialTable
+    [Migration("20200421142114_initialMigration")]
+    partial class initialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -49,12 +49,11 @@ namespace FoodOrdering.Data.Migrations.FoodOrderingDb
 
                     b.Property<DateTime>("DateCreated");
 
-                    b.Property<string>("ProductId")
-                        .HasMaxLength(80);
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("Menus");
                 });
@@ -69,6 +68,9 @@ namespace FoodOrdering.Data.Migrations.FoodOrderingDb
 
                     b.Property<string>("Description");
 
+                    b.Property<string>("MenuId")
+                        .HasMaxLength(80);
+
                     b.Property<string>("Name");
 
                     b.Property<decimal>("Price")
@@ -76,14 +78,16 @@ namespace FoodOrdering.Data.Migrations.FoodOrderingDb
 
                     b.HasKey("Id");
 
+                    b.HasIndex("MenuId");
+
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("FoodOrdering.Data.Models.Menu", b =>
+            modelBuilder.Entity("FoodOrdering.Data.Models.Product", b =>
                 {
-                    b.HasOne("FoodOrdering.Data.Models.Product", "Product")
+                    b.HasOne("FoodOrdering.Data.Models.Menu", "Menu")
                         .WithMany()
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("MenuId");
                 });
 #pragma warning restore 612, 618
         }
