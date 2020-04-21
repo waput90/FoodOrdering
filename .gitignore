@@ -1,0 +1,14 @@
+
+FoodOrdering/.vs/FoodOrdering/v16/.suo
+FoodOrdering/FoodOrdering.Web/bin/*
+FoodOrdering/FoodOrdering.Web/obj/*
+FoodOrdering/FoodOrdering.Data/bin/*
+FoodOrdering/FoodOrdering.Data/obj/*
+FoodOrdering/FoodOrdering.Commons/bin/*
+FoodOrdering/FoodOrdering.Commons/obj/*
+FoodOrdering/FoodOrdering.Services/bin/*
+FoodOrdering/FoodOrdering.Services/obj/*
+FoodOrdering/.vs/FoodOrdering/v16/Server/sqlite3/db.lock
+FoodOrdering/.vs/FoodOrdering/v16/Server/sqlite3/storage.ide
+FoodOrdering/.vs/FoodOrdering/v16/Server/sqlite3/storage.ide-shm
+FoodOrdering/.vs/FoodOrdering/v16/Server/sqlite3/storage.ide-wal
