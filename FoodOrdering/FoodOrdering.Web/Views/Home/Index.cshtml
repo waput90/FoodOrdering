@@ -84,13 +84,32 @@
                                         </td>
                                     </tr>
                                     <!-- /ko -->
+                                    <!-- ko if: vars.discount() != 0 -->
+                                    <tr>
+                                        <td><br></td>
+                                        <td><br></td>
+                                        <td>Discount: </td>
+                                        <td data-bind="text: vars.discount() +'%'">
+                                        </td>
+                                        <td><br></td>
+                                    </tr>
+                                    <!-- /ko -->
                                     <!-- ko if: vars.orderList().length > 0 -->
                                     <tr>
                                         <td><br></td>
                                         <td><br></td>
                                         <td>Total: </td>
-                                        <td data-bind="text: accounting.formatMoney(vars.orderTotal(),'₱ ')">
-                                        </td>
+                                        <!-- ko if: vars.discount() != 0 -->
+                                            <td data-bind="text: 
+                                                            accounting.formatMoney(
+                                                                vars.orderTotal() - ( vars.orderTotal() * (vars.discount() / 100)) 
+                                                                ,'₱ ') + ' ( - ' + vars.orderTotal() * (vars.discount() / 100) + ' )'">
+                                            </td>
+                                        <!-- /ko -->
+                                        <!-- ko if: vars.discount() == 0 -->
+                                            <td data-bind="text: accounting.formatMoney(vars.orderTotal() ,'₱ ')">
+                                            </td>
+                                        <!-- /ko -->
                                         <td><br></td>
                                     </tr>
                                     <!-- /ko -->
@@ -101,9 +120,9 @@
                     <div class="col-md-12">
                         <div class="form-group mt-2">
                             <div class="input-group">
-                                <input type="text" placeholder="Place coupon codes" class="form-control" name="" id="">
+                                <input type="text" data-bind="textInput: vars.coupon" placeholder="Place coupon codes" class="form-control" name="" id="">
                                 <div class="input-group-append">
-                                    <button class="btn btn-success">
+                                    <button class="btn btn-success" type="click" data-bind="click: event.validateCoupon">
                                         <i class="fas fa-plus" ></i>
                                     </button>
                                 </div>

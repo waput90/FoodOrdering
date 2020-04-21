@@ -136,6 +136,26 @@ const increaseItem = (value) => {
     }
 }
 
+const validateCoupon = () => {
+    Swal.fire({
+        title: 'Validating Coupon..',
+        timerProgressBar: true,
+        onBeforeOpen: () => Swal.showLoading()
+    });
+    setTimeout(() => {
+        if (vars.coupon() == "GOSAKTO") {
+            vars.discount(10);
+            Swal.close();
+        }
+        else
+            Swal.fire(
+                'Invalid Coupon',
+                'Invalid coupon code. please try again',
+                'error'
+            );
+    }, 3000);
+}
+
 const clearMenu = () => vars.isMenuSelected(null);
 
 export default {
@@ -146,5 +166,6 @@ export default {
     subMenuHelper,
     calculateSub,
     increaseItem,
-    reduceItem
+    reduceItem,
+    validateCoupon,
 }

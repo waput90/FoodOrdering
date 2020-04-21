@@ -4,4 +4,6 @@ export let vars = {
     productList: ko.observable([]),
     orderList: ko.observableArray([]),
     orderTotal: ko.observable(),
+    coupon: ko.observable(),
+    discount: ko.observable(0),
 }
