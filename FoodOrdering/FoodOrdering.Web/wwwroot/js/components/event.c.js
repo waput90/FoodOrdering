@@ -2,13 +2,65 @@ import { vars } from "./variable.c.js";
 
 const selectMenu = (value) => {
     vars.isMenuSelected(value.id);
-    console.log(value);
     vars.productList(value.products());
     vars.productList.valueHasMutated();
 }
 
 const selectSubMenu = (value) => {
-    console.log(value);
+    Swal.fire({
+        title: 'Enter quantity',
+        input: 'text',
+        inputAttributes: {
+            autocapitalize: 'off'
+        },
+        showCancelButton: true,
+        confirmButtonText: 'Submit',
+    }).then((result) => {
+        if (result.value) {
+            if (!new RegExp(/^[0-9]{1,}$/).test(result.value)) {
+                Swal.fire(
+                    'Invalid quantity',
+                    'Quantity should be number.',
+                    'error'
+                );
+            }
+            else {
+                //place order here
+                if (vars.orderList == null) {
+                    let data = vars.orderList();
+                    data.push({
+                        id: value.id,
+                        name: value.name,
+                        qty: ko.observable(result.value),
+                        price: value.price,
+                        subtotal: ko.observable(value.price * result.value)
+                    });
+                    vars.orderList.valueHasMutated();
+                    calculateSub();
+                }
+                else {
+                    let order = _.find(vars.orderList(), s => s.id == value.id);
+
+                    if (order != null) {
+                        order.qty(parseInt(order.qty()) + parseInt(result.value));
+                        order.subtotal(order.subtotal() + (order.price * result.value));
+                    }
+                    else {
+                        let data = vars.orderList();
+                        data.push({
+                            id: value.id,
+                            name: value.name,
+                            qty: ko.observable(result.value),
+                            price: value.price,
+                            subtotal: ko.observable(value.price * result.value)
+                        });
+                    }
+                    vars.orderList.valueHasMutated();
+                    calculateSub();
+                }
+            }
+        }
+    });
 }
 
 const menuHelper = (name) => {
@@ -49,6 +101,41 @@ const subMenuHelper = (name) => {
     }
 }
 
+const calculateSub = () => {
+    let data = 0;
+    _.forEach(vars.orderList(), o => {
+        data += o.subtotal();
+    });
+
+    vars.orderTotal(data);
+}
+
+const reduceItem = (value) => {
+    var item = _.find(vars.orderList(), o => o.id == value.id);
+
+    if (item != null) {
+        if (item.qty() <= 1) {
+            //remove the item 
+            vars.orderList.remove(item);
+        }
+        else {
+            item.qty(item.qty() - 1);
+            item.subtotal(item.subtotal() - value.price);
+        }
+        calculateSub();
+    }
+}
+
+const increaseItem = (value) => {
+    var item = _.find(vars.orderList(), o => o.id == value.id);
+
+    if (item != null) {
+        item.qty(parseInt(item.qty()) + 1);
+        item.subtotal(item.subtotal() + value.price);
+        calculateSub();
+    }
+}
+
 const clearMenu = () => vars.isMenuSelected(null);
 
 export default {
@@ -57,4 +144,7 @@ export default {
     selectSubMenu,
     menuHelper,
     subMenuHelper,
+    calculateSub,
+    increaseItem,
+    reduceItem
 }

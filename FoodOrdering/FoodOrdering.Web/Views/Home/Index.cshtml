@@ -8,7 +8,7 @@
             <div class="card-header">
                 <h5>
                      <!-- ko if: vars.isMenuSelected() != null -->
-                        <a href="javascript:void();" data-bind="click: event.clearMenu" class="badge badge-secondary">
+                        <a href="javascript:void(0);" data-bind="click: event.clearMenu" class="badge badge-secondary">
                             <i class="fas fa-arrow-left"></i>
                         </a>
                     <!-- /ko -->
@@ -65,21 +65,35 @@
                                         <th>Name</th>
                                         <th>Qty</th>
                                         <th>Price</th>
+                                        <th>Subtotal</th>
                                         <th><br></th>
                                     </tr>
+                                    <!-- ko foreach: vars.orderList -->
                                     <tr>
-                                        <td>Cheese burger</td>
-                                        <td>2</td>
-                                        <td>24.00</td>
+                                        <td data-bind="text: name"></td>
+                                        <td data-bind="text: qty()"></td>
+                                        <td data-bind="text: accounting.formatMoney(price, '')"></td>
+                                        <td data-bind="text: accounting.formatMoney(subtotal(),'₱ ')"></td>
                                         <td>
-                                            <button class="btn btn-success btn-sm">
+                                            <a href="javascript:void(0);" data-bind="click: $root.event.increaseItem" class="badge badge-success">
                                                 <i class="fas fa-plus"></i>
-                                            </button>
-                                            <button class="btn btn-danger btn-sm">
-                                                <i class="fas fa-minus"></i>
-                                            </button>
+                                            </a>
+                                            <a href="javascript:void(0);" data-bind="click: $root.event.reduceItem" class="badge badge-danger">
+                                                <i class="fas fa-minus"></i> 
+                                            </a>
                                         </td>
                                     </tr>
+                                    <!-- /ko -->
+                                    <!-- ko if: vars.orderList().length > 0 -->
+                                    <tr>
+                                        <td><br></td>
+                                        <td><br></td>
+                                        <td>Total: </td>
+                                        <td data-bind="text: accounting.formatMoney(vars.orderTotal(),'₱ ')">
+                                        </td>
+                                        <td><br></td>
+                                    </tr>
+                                    <!-- /ko -->
                                 </table>
                             </div>
                         </div>
