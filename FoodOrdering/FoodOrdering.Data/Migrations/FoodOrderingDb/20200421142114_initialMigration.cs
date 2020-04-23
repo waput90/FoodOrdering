@@ -7,6 +7,8 @@ namespace FoodOrdering.Data.Migrations.FoodOrderingDb
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.Sql(@"SET default_storage_engine=InnoDB;");
+            migrationBuilder.Sql(@"ALTER DATABASE CHARACTER SET utf8 COLLATE utf8_unicode_ci;");
             migrationBuilder.CreateTable(
                 name: "Coupons",
                 columns: table => new

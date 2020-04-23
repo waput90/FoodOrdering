@@ -16,3 +16,4 @@ FoodOrdering/FoodOrdering.Data/global.json
 FoodOrdering/.vscode/launch.json
 FoodOrdering/.vscode/tasks.json
 FoodOrdering/.vs/FoodOrdering/DesignTimeBuild/.dtbcache
+FoodOrdering/FoodOrdering.Web/.config/dotnet-tools.json

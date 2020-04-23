@@ -9,7 +9,7 @@ namespace FoodOrdering.Data.Migrations.FoodOrderingDb
         {
             migrationBuilder.Sql(@"SET default_storage_engine=InnoDB;");
             migrationBuilder.Sql(@"ALTER DATABASE CHARACTER SET utf8 COLLATE utf8_unicode_ci;");
-            migrationBuilder.Sql(@"SET GLOBAL FOREIGN_KEY_CHECKS=0");
+            // migrationBuilder.Sql(@"SET GLOBAL FOREIGN_KEY_CHECKS=0");
             migrationBuilder.CreateTable(
                 name: "Customers",
                 columns: table => new

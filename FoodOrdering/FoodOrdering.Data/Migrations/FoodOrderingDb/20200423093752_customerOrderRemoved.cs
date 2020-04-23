@@ -6,7 +6,7 @@ namespace FoodOrdering.Data.Migrations.FoodOrderingDb
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql(@"SET GLOBAL FOREIGN_KEY_CHECKS=0");
+            // migrationBuilder.Sql(@"SET GLOBAL FOREIGN_KEY_CHECKS=0");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
