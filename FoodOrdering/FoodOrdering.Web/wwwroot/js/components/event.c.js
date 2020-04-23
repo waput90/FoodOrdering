@@ -1,4 +1,5 @@
 import { vars } from "./variable.c.js";
+import request from "./request.c.js";
 
 const selectMenu = (value) => {
     vars.isMenuSelected(value.id);
@@ -136,24 +137,32 @@ const increaseItem = (value) => {
     }
 }
 
-const validateCoupon = () => {
+const validateCoupon = async () => {
     Swal.fire({
         title: 'Validating Coupon..',
         timerProgressBar: true,
         onBeforeOpen: () => Swal.showLoading()
     });
-    setTimeout(() => {
-        if (vars.coupon() == "GOSAKTO") {
-            vars.discount(10);
-            Swal.close();
-        }
-        else
-            Swal.fire(
-                'Invalid Coupon',
-                'Invalid coupon code. please try again',
-                'error'
-            );
-    }, 3000);
+    await request.getCoupon();
+
+    Swal.fire(
+        'Coupon Success',
+        'Request Ok',
+        'success'
+    );
+    // setTimeout(() => {
+
+    //     if (vars.coupon() == "GOSAKTO") {
+    //         vars.discount(10);
+    //         Swal.close();
+    //     }
+    //     else
+    //         Swal.fire(
+    //             'Invalid Coupon',
+    //             'Invalid coupon code. please try again',
+    //             'error'
+    //         );
+    // }, 3000);
 }
 
 const clearMenu = () => vars.isMenuSelected(null);

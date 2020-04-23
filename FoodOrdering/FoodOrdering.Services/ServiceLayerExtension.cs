@@ -9,7 +9,11 @@ namespace FoodOrdering.Services
     {
         public static IServiceCollection RegisterService(this IServiceCollection service)
         {
+            service.TryAddTransient<ICouponService, CouponService>();
+            service.TryAddTransient<ICustomerService, CustomerService>();
+            service.TryAddTransient<ICouponService, CouponService>();
             service.TryAddTransient<IProductService, ProductService>();
+            service.TryAddTransient<IOrderService, OrderService>();
             service.TryAddTransient<IMenuService, MenuService>();
             return service;
         }

@@ -12,6 +12,7 @@ namespace FoodOrdering.Data.Models
         public string NormalizedName { get; set; }
         public string Description { get; set; }
         public int Discount { get; set; }
+        public bool? IsUsed { get; set; }
         public DateTime Validity { get; set; }
         public DateTime DateCreated { get; set; }
     }

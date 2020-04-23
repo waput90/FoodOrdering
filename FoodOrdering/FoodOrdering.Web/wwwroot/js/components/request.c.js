@@ -2,7 +2,7 @@ import { vars } from './variable.c.js';
 
 const getMenu = () => {
     return new Promise(resolve => {
-        $.get("/home/get-menu", res => {
+        $.get("/menu/get", res => {
             if (typeof res != 'undefined' && res != null) {
                 console.log(res);
                 let data = vars.menuList();
@@ -23,6 +23,36 @@ const getMenu = () => {
     });
 }
 
+const getCoupon = () => {
+    return new Promise(resolve => {
+        $.get(`/coupon/get?code=${vars.coupon()}`, res => {
+            console.log(res);
+            if (typeof res != 'undefined' && res != null) {
+
+            }
+        })
+        .done(() => {
+            resolve(true);
+        });
+    })
+}
+
+const getDefaultCustomer = () => {
+    return new Promise(resolve => {
+        $.get("/customer/get-default", res => {
+            console.log(res);
+            if (typeof res != 'undefined' && res != null) {
+
+            }
+        })
+        .done(() => {
+            resolve(true);
+        });
+    });
+}
+
 export default {
     getMenu,
+    getCoupon,
+    getDefaultCustomer,
 }

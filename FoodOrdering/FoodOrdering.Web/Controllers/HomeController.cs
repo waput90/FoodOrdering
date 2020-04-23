@@ -15,28 +15,10 @@ namespace FoodOrdering.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IMenuService _menuService;
-        private readonly IProductService _productService;
         public HomeController(
-             IProductService productService,
-            IMenuService menuService,
             ILogger<HomeController> logger)
         {
-            _productService = productService;
-            _menuService = menuService;
             _logger = logger;
-        }
-
-        [Route("insert"), HttpPost]
-        public async Task<JsonResult> Add([FromBody] AddProductRequestModel model)
-        {
-            return Json(await _productService.Add(model));
-        }
-
-        [Route("get-menu"), HttpGet]
-        public async Task<JsonResult> GetMenu()
-        {
-            return Json(await _menuService.Get());
         }
 
         public IActionResult Index()

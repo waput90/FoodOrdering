@@ -5,8 +5,9 @@ import { vars } from './components/variable.c.js';
 app.vm = (() => {
     "use strict";
 
-    const init = async () => {
-        await request.getMenu();
+    const init = () => {
+        request.getMenu();
+        request.getDefaultCustomer();
     }
 
     const vm = { 
