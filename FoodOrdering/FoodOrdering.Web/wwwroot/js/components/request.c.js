@@ -88,6 +88,11 @@ const saveOrder = () => {
                             'Order placed successfully',
                             'success'
                         );
+                        vars.coupon(null);
+                        vars.discount(0);
+                        vars.discountId(null);
+                        vars.orderList.removeAll();
+                        vars.orderTotal(0);
                     }
                     else {
                         Swal.fire(
