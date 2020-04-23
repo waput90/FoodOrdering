@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using FoodOrdering.Commons.Enums;
 using FoodOrdering.Commons.Extensions;
 using FoodOrdering.Commons.ViewModel;
 using FoodOrdering.Data.Access.Patterns.Factory;
@@ -31,14 +32,15 @@ namespace FoodOrdering.Services.Concrete
                     using (var uow = _unitOfWorkFactory.CreateUow())
                     {
                         var coupons = (await uow.GetEntityRepository<Coupon>()
-                                                .ItemsAsync(q => q.Name.Equals(name)))
+                                                .ItemsAsync(q => q.Name.Equals(name, StringComparison.CurrentCulture)))
                                                 .FirstOrDefault();
+
                         if (!coupons.IsNull())
                             return new GetCouponResponseModel
                             {
                                 Id = coupons.Id,
                                 Discount = coupons.Discount,
-                                IsAvail = coupons.IsUsed.HasValue ? coupons.IsUsed.Value : true,
+                                IsAvail = coupons.IsUsed.Equals(CouponEnum.USED) ? false : true,
                                 IsValid = DateTime.Now.GetDate() > coupons.Validity ? false : true
                             };
                     }
@@ -63,9 +65,9 @@ namespace FoodOrdering.Services.Concrete
                         var coupons = await uow.GetEntityRepository<Coupon>()
                                                 .FindAsync(couponId);
 
-                        if (!coupons.IsNull())
+                        if (coupons != null)
                         {
-                            coupons.IsUsed = true;
+                            coupons.IsUsed = CouponEnum.USED;
                             uow.GetEntityRepository<Coupon>().Update(coupons);
                             await uow.Commit();
                             return true;

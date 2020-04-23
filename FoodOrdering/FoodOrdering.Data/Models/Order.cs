@@ -9,6 +9,7 @@ namespace FoodOrdering.Data.Models
     {
         [Key]
         public string Id { get; set; }
+        public string RefId { get; set; }
         public string CustomerId { get; set; }
         public decimal Total { get; set; }
         public decimal DiscountedTotal { get; set; }

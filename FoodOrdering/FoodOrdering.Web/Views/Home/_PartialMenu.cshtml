@@ -1,0 +1,118 @@
+<!-- ko if: vars.isHistorySelected() == false -->
+<div class="col-md-6">
+        <div class="card card-default">
+            <div class="card-header">
+                <h5>
+                     <!-- ko if: vars.isMenuSelected() != null -->
+                        <a href="javascript:void(0);" data-bind="click: event.clearMenu" class="badge badge-secondary">
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                    <!-- /ko -->
+                    Simple Online Ordering App
+
+                    <a href="javascript:void(0);" data-bind="click: event.selectHistory" class="badge badge-secondary float-right">
+                        <i class="fas fa-history"></i> Order History
+                    </a>
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <!-- ko if: vars.isMenuSelected() == null -->
+                        <!-- ko foreach: vars.menuList -->
+                        <div class="col-md-6 mt-2" data-bind="click: $root.event.selectMenu">
+                            <div class="card card-default card-pointer h-100">
+                                <div class="card-header h-100">
+                                    <img data-bind="attr: { src: $root.event.menuHelper(name)}" class="img-fluid rounded" alt="">
+                                    <hr>
+                                    <h6 class="text-center" data-bind="text: name"></h6>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                    <!-- /ko -->
+                    <!-- ko if: vars.isMenuSelected() != null -->
+                        <!-- ko foreach: vars.productList -->
+                        <div class="col-md-6 mt-2" data-bind="click: $root.event.selectSubMenu">
+                            <div class="card card-default card-pointer h-100">
+                                <div class="card-header h-100">
+                                    <img data-bind="attr: { src: $root.event.subMenuHelper(name)}" class="img-fluid rounded" alt="">
+                                    <hr>
+                                    <h6 class="text-center" data-bind="text: name"></h6>
+                                    <h6 class="text-center" data-bind="text: accounting.formatMoney(price,'₱ ')"></h6>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                    <!-- /ko -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+<!-- /ko -->
+<!-- ko if: vars.isHistorySelected() == true -->
+<div class="col-md-12">
+    <div class="card card-default">
+        <div class="card-header">
+                <h5>
+                     <!-- ko if: vars.isHistorySelected() == true -->
+                        <a href="javascript:void(0);" data-bind="click: event.clearMenu" class="badge badge-secondary">
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                    <!-- /ko -->
+                    Order History
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="accordion" id="accordionExample">
+                    <!-- ko foreach: vars.historyList -->
+                    <div class="card">
+                        <div class="card-header" data-bind="attr: { id: 'heading'+$index()}">
+                            <h2 class="mb-0">
+                                <button type="button" data-toggle="collapse" data-bind="attr: { 'data-target': '#collapse' + $index(), 'aria-controls': '#collapse' + $index(), class: $index() == 0 ? 'btn btn-link collapsed' : 'btn btn-link', 'aria-expanded': $index() == 0 ? 'true' : 'false'}, text: 'Order reference: '+ id" data-target="#collapseOne" aria-expanded="true">
+                                    Order Reference: 12313-123213-1232
+                                </button>
+                            </h2>
+                        </div>
+                        <div data-bind="attr: { id : '#collapse' + $index(), class: $index() == 0 ? 'collapse show' : 'collapse show', 'aria-labelledby': 'heading'+$index()}" data-parent="#accordionExample">
+                            <div class="card-body">
+                                <table class="table table-borderless">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Qty</th>
+                                        <th>Price</th>
+                                        <th>Subtotal</th>
+                                    </tr>
+                                    <!-- ko foreach: orderItems -->
+                                    <tr>
+                                        <td data-bind="text: name"></td>
+                                        <td data-bind="text: qty"></td>
+                                        <td data-bind="text: accounting.formatMoney(price, '₱ ')"></td>
+                                        <td data-bind="text: accounting.formatMoney(subtotal, '₱ ')"></td>
+                                    </tr>
+                                    
+                                    <!-- ko if: $index() == $parent.orderItems().length -1  -->
+                                    <tr>
+                                        <td><br></td>
+                                        <td><br></td>
+                                        <td>Discount </td>
+                                        <td data-bind="text: $parent.discountedTotal + '%'"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><br></td>
+                                        <td><br></td>
+                                        <td>Total </td>
+                                        <td data-bind="text: accounting.formatMoney($parent.overallTotal, '₱ ')"></td>
+                                    </tr>
+                                    <!-- /ko -->
+                                    <!-- /ko -->
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- /ko -->

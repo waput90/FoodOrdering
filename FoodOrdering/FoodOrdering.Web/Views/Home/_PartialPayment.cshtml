@@ -1,0 +1,102 @@
+<!-- ko if: vars.isHistorySelected() == false -->
+<div class="col-md-6">
+        <div class="card card-default">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-default">
+                            <div class="card-header">
+                                <label>
+                                    Current order:
+                                </label>
+                                <hr>
+                                <table class="table table-borderless">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Qty</th>
+                                        <th>Price</th>
+                                        <th>Subtotal</th>
+                                        <th><br></th>
+                                    </tr>
+                                    <!-- ko foreach: vars.orderList -->
+                                    <tr>
+                                        <td data-bind="text: name"></td>
+                                        <td data-bind="text: qty()"></td>
+                                        <td data-bind="text: accounting.formatMoney(price, '')"></td>
+                                        <td data-bind="text: accounting.formatMoney(subtotal(),'₱ ')"></td>
+                                        <td>
+                                            <a href="javascript:void(0);" data-bind="click: $root.event.increaseItem" class="badge badge-success">
+                                                <i class="fas fa-plus"></i>
+                                            </a>
+                                            <a href="javascript:void(0);" data-bind="click: $root.event.reduceItem" class="badge badge-danger">
+                                                <i class="fas fa-minus"></i> 
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <!-- /ko -->
+                                    <!-- ko if: vars.discount() != 0 -->
+                                    <tr>
+                                        <td><br></td>
+                                        <td><br></td>
+                                        <td>Discount: </td>
+                                        <td data-bind="text: vars.discount() +'%'">
+                                        </td>
+                                        <td><br></td>
+                                    </tr>
+                                    <!-- /ko -->
+                                    <!-- ko if: vars.orderList().length > 0 -->
+                                    <tr>
+                                        <td><br></td>
+                                        <td><br></td>
+                                        <td>Total: </td>
+                                        <!-- ko if: vars.discount() != 0 -->
+                                            <td data-bind="text: 
+                                                            accounting.formatMoney(
+                                                                vars.orderTotal() - ( vars.orderTotal() * (vars.discount() / 100)) 
+                                                                ,'₱ ')">
+                                            </td>
+                                        <!-- /ko -->
+                                        <!-- ko if: vars.discount() == 0 -->
+                                            <td data-bind="text: accounting.formatMoney(vars.orderTotal() ,'₱ ')">
+                                            </td>
+                                        <!-- /ko -->
+                                        <td><br></td>
+                                    </tr>
+                                        <!-- ko if: vars.discount() != 0 -->
+                                        <tr>
+                                            <td><br></td>
+                                            <td><br></td>
+                                            <td><br></td>
+                                                <td data-bind="text: '- ' + accounting.formatMoney(vars.orderTotal() * (vars.discount() / 100),'₱ ')">
+                                                </td>
+                                            <td><br></td>
+                                        </tr>
+                                        <!-- /ko -->
+                                    <!-- /ko -->
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group mt-2">
+                            <div class="input-group">
+                                <input type="text" data-bind="textInput: vars.coupon" placeholder="Place coupon codes" class="form-control" name="" id="">
+                                <div class="input-group-append">
+                                    <button class="btn btn-success" type="click" data-bind="click: event.validateCoupon">
+                                        <i class="fas fa-plus" ></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <form data-bind="submit: event.placeOrder">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-success btn-block btn-lg">
+                                <i class="fas fa-cart-plus"></i> PLACE ORDER
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- /ko -->

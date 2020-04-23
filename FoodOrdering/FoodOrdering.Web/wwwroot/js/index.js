@@ -8,6 +8,7 @@ app.vm = (() => {
     const init = () => {
         request.getMenu();
         request.getDefaultCustomer();
+        request.getHistory();
     }
 
     const vm = { 

@@ -107,7 +107,6 @@ const calculateSub = () => {
     _.forEach(vars.orderList(), o => {
         data += o.subtotal();
     });
-
     vars.orderTotal(data);
 }
 
@@ -144,28 +143,26 @@ const validateCoupon = async () => {
         onBeforeOpen: () => Swal.showLoading()
     });
     await request.getCoupon();
-
-    Swal.fire(
-        'Coupon Success',
-        'Request Ok',
-        'success'
-    );
-    // setTimeout(() => {
-
-    //     if (vars.coupon() == "GOSAKTO") {
-    //         vars.discount(10);
-    //         Swal.close();
-    //     }
-    //     else
-    //         Swal.fire(
-    //             'Invalid Coupon',
-    //             'Invalid coupon code. please try again',
-    //             'error'
-    //         );
-    // }, 3000);
 }
 
-const clearMenu = () => vars.isMenuSelected(null);
+const placeOrder = async () => {
+    Swal.fire({
+        title: 'Placing orders..',
+        timerProgressBar: true,
+        onBeforeOpen: () => Swal.showLoading()
+    });
+    await request.saveOrder();
+}
+
+const selectHistory = () => {
+    request.getHistory();
+    vars.isHistorySelected(true);
+}
+
+const clearMenu = () => {
+    vars.isHistorySelected(false);
+    vars.isMenuSelected(null);
+} 
 
 export default {
     selectMenu,
@@ -177,4 +174,6 @@ export default {
     increaseItem,
     reduceItem,
     validateCoupon,
+    placeOrder,
+    selectHistory
 }
